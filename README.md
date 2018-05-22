@@ -36,28 +36,29 @@ apt-get -y purge npm nodejs
 
 # Hands-on steps
 
-## check node
+## Software check
+### check node
 
 ```console
 $ node -v
 v9.9.0
 ```
 
-## check tileserver-gl-light
+### check tileserver-gl-light
 
 ```console
 $ tileserver-gl-light -v
 tileserver-gl-light v2.3.1
 ```
 
-## check tippecanoe
+### check tippecanoe
 
 ```console
 $ tippecanoe -v
 tippecanoe v1.27.16
 ```
 
-## clone pnd.js using git
+### clone pnd.js using git
 
 ```console
 $ git clone git@github.com:hfu/pnd.git
@@ -69,7 +70,7 @@ Receiving objects: 100% (52/52), 21.06 KiB, done.
 Resolving deltas: 100% (29/29), done.
 ```
 
-## install npm modules
+### install npm modules
 
 ```console
 $ cd pnd
