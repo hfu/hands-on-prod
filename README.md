@@ -1,4 +1,6 @@
 # Vector tiles production
+## What do we do in this hands-on?
+
 1. Extract data from [PostGIS](https://postgis.net/) to [NDJSON](http://ndjson.org/) of GeoJSON. For each feature, properties are filetered accordingly, and control properties for tippecanoe are added.
 2. Obtain mbtiles, a package of vector tiles, from NDJSON using [tippecanoe](https://github.com/mapbox/tippecanoe).
 3. Confirm the resulting mbtiles using [tileserver-gl-light](https://github.com/klokantech/tileserver-gl/blob/master/README_light.md) so that the vector tiles are ready for further hosting and consumption steps.
