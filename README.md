@@ -1,12 +1,17 @@
+# Vector tiles production with pnd.js and tippecanoe
+
 # What is in this hands-on?
 1. Extract data from [PostGIS](https://postgis.net/) to [NDJSON](http://ndjson.org/) while appending tippecanoe properties to features.
 2. Obtain mbtiles from NDJSON using [tippecanoe](https://github.com/mapbox/tippecanoe).
 3. Confirm the resulting mbtiles using [tileserver-gl-light](https://github.com/klokantech/tileserver-gl/blob/master/README_light.md).
 
 # Recommended baseline software
+
 - ubuntu Linux
 - Google Chrome - you may want to add Chrome Secure Shell extension for ssh access to the server.
+
 # Required software
+
 ## tippecanoe
 Install from [GitHub](https://github.com/mapbox/tippecanoe).
 
