@@ -16,11 +16,11 @@ Although vector tiles works well with all modern web browsers. You may want to a
 
 ### tippecanoe
 
-Install from [GitHub](https://github.com/mapbox/tippecanoe).
+You can install from [GitHub](https://github.com/mapbox/tippecanoe).
 
 ### Node.js
 
-Install from [nodejs.org](https://nodejs.org/ja/download/package-manager/#debian-and-ubuntu-based-linux-distributions-debian-ubuntu-linux)
+You can install from [nodejs.org](https://nodejs.org/ja/download/package-manager/#debian-and-ubuntu-based-linux-distributions-debian-ubuntu-linux)
 
 Or you may want to use [n](https://github.com/tj/n):
 ```
