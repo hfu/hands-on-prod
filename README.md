@@ -1,13 +1,16 @@
 # Vector tiles production
-1. Extract data from [PostGIS](https://postgis.net/) to [NDJSON](http://ndjson.org/) while appending tippecanoe properties to features.
-2. Obtain mbtiles from NDJSON using [tippecanoe](https://github.com/mapbox/tippecanoe).
-3. Confirm the resulting mbtiles using [tileserver-gl-light](https://github.com/klokantech/tileserver-gl/blob/master/README_light.md).
+1. Extract data from [PostGIS](https://postgis.net/) to [NDJSON](http://ndjson.org/) of GeoJSON. For each feature, properties are filetered accordingly, and control properties for tippecanoe are added.
+2. Obtain mbtiles, a package of vector tiles, from NDJSON using [tippecanoe](https://github.com/mapbox/tippecanoe).
+3. Confirm the resulting mbtiles using [tileserver-gl-light](https://github.com/klokantech/tileserver-gl/blob/master/README_light.md) so that the vector tiles are ready for further hosting and consumption steps.
 
 # Software
 ## Recommended baseline software
 
-- ubuntu Linux
-- Google Chrome - you may want to add Chrome Secure Shell extension for ssh access to the server.
+### Linux
+Although this process works well with macOS and probably works with Cygwin or the Windows Subsystem for Linux, this hands-on assumes that we use Linux, such as ubuntu or RedHat.
+
+### Google Chrome
+Although vector tiles works well with all modern web browsers. You may want to add Chrome Secure Shell extension for ssh access to the server.
 
 ## Required software
 
