@@ -46,7 +46,7 @@ apt-get -y purge npm nodejs
 
 ```console
 $ node -v
-v9.9.0
+v8.11.2
 ```
 
 ### check tileserver-gl-light
@@ -60,9 +60,9 @@ tileserver-gl-light v2.3.1
 
 ```console
 $ tippecanoe -v
-tippecanoe v1.27.16
+tippecanoe v1.28.1
 ```
-
+## Produce vector tiles
 ### clone pnd.js using git
 
 ```console
@@ -81,4 +81,55 @@ Resolving deltas: 100% (29/29), done.
 $ cd pnd
 $ npm install
 added 166 packages from 81 contributors in 5.574s
+```
+
+### prepare a config file for connecting the datasource
+
+```console
+$ mkdir config
+$ vi config/default.ndjson 
+```
+
+You need to input the configurations. Your hands-on tutor may provide the configurations. Otherwise, the following is an example of the content of the config file.
+
+```hjson
+{
+  host: postgis.host.name
+  user: username
+  password: secretpassword
+  modules: [ // array of z=5 modules expressed by [z, x, y]
+    [5, 13, 12]
+  ]
+  geom: { // geometric field name for each database
+    database1: geom
+    database2: geomtype
+  }
+  data: {
+    database1: [
+      // [table_name, minzoom, maxzoom, field_name_to_be_taken_as_annotation]
+      ['custom_planet_ocean', 0, 6, null]
+      // ...
+    ]
+    database2: [
+      ['osm_planet_water', 10, 16, null]
+      // ...
+      ['osm_planet_major_roads', 10, 16, null]
+      // ...
+      ['osm_planet_places', 10, 16, 'name']
+      // ...
+    ]
+  }
+}
+```
+
+Or you can use other editors such as nano if you are not familiar with vi.
+
+You may want to check the schema and example values of source database by [schema-check](https://github.com/hfu/schema-check).
+
+The syntax of config.hjson is [hjson](https://hjson.org/). You can prepare config.json if you prefer, and the script will automatically recongize the traditional syntax.
+
+You can check the location of z=5 module from [his site](http://maps.gsi.go.jp/#5/3.557283/28.520508/&ls=seamlessphoto&disp=1&lcd=seamlessphoto&vs=c0j0h0k0l0u0t1z0r0s0f1&d=v) for example.
+
+### convert to vector tiles
+```console
 ```
