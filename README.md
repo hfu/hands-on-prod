@@ -128,7 +128,7 @@ You may want to check the schema and example values of source database by [schem
 
 The syntax of config.hjson is [hjson](https://hjson.org/). You can prepare config.json if you prefer, and the script will automatically recongize the traditional syntax.
 
-You can check the location of z=5 module from [his site](http://maps.gsi.go.jp/#5/3.557283/28.520508/&ls=seamlessphoto&disp=1&lcd=seamlessphoto&vs=c0j0h0k0l0u0t1z0r0s0f1&d=v) for example.
+You can check the location of z=5 module from [this site](http://maps.gsi.go.jp/#5/3.557283/28.520508/&ls=seamlessphoto&disp=1&lcd=seamlessphoto&vs=c0j0h0k0l0u0t1z0r0s0f1&d=v) for example.
 
 ### convert to vector tiles
 ```console
