@@ -83,11 +83,11 @@ $ npm install
 added 166 packages from 81 contributors in 5.574s
 ```
 
-### prepare a config file for connecting the datasource
+### prepare a config file (config/default.hjson) for connecting the datasource
 
 ```console
 $ mkdir config
-$ vi config/default.ndjson 
+$ vi config/default.hjson 
 ```
 
 You need to input the configurations. Your hands-on tutor may provide the configurations. Otherwise, the following is an example of the content of the config file.
@@ -98,24 +98,21 @@ You need to input the configurations. Your hands-on tutor may provide the config
   user: username
   password: secretpassword
   modules: [ // array of z=5 modules expressed by [z, x, y]
-    [5, 13, 12]
+    [5, 18, 15]
   ]
   geom: { // geometric field name for each database
     database1: geom
-    database2: geomtype
+    database2: geom
   }
   data: {
     database1: [
-      // [table_name, minzoom, maxzoom, field_name_to_be_taken_as_annotation]
-      ['custom_planet_ocean', 0, 6, null]
+      custom_planet_ocean
       // ...
     ]
     database2: [
-      ['osm_planet_water', 10, 16, null]
-      // ...
-      ['osm_planet_major_roads', 10, 16, null]
-      // ...
-      ['osm_planet_places', 10, 16, 'name']
+      osm_planet_water
+      osm_planet_major_roads
+      osm_planet_places
       // ...
     ]
   }
@@ -129,6 +126,8 @@ You may want to check the schema and example values of source database by [schem
 The syntax of config.hjson is [hjson](https://hjson.org/). You can prepare config.json if you prefer, and the script will automatically recongize the traditional syntax.
 
 You can check the location of z=5 module from [this site](http://maps.gsi.go.jp/#5/3.557283/28.520508/&ls=seamlessphoto&disp=1&lcd=seamlessphoto&vs=c0j0h0k0l0u0t1z0r0s0f1&d=v) for example.
+
+### prepare modify.js
 
 ### convert to vector tiles
 ```console
