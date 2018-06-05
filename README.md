@@ -158,7 +158,7 @@ We will not cover the detailed meaning of this file. You can see [RFC 7946: The 
 ### create vector tiles
 You prepared config/default.hjson and modify.js for your data. Next, you can create vector tiles!
 ```console
- $ node pnd.js
+$ node pnd.js
 importing #1 8-150-124
 started a tippecanoe process: 1 of 1 active, 0 in queue.
 For layer 0, using name "8150124ndjson"
