@@ -8,6 +8,7 @@
 After this hands-on, vector tiles are ready for hosting and consumption.
 
 # Software
+
 ## Recommended baseline software
 
 ### Linux
@@ -16,7 +17,7 @@ This hands-on assumes Linux such as ubuntu or RedHat as the operating system.
 Yet, we also used macOS. Cygwin or Windows Subsystem for Linux might also be good.
 
 ### Google Chrome
-Although vector tiles works well with all modern web browsers. You may want to add Chrome Secure Shell extension for ssh access to the server.
+Vector tiles works well with all modern web browsers. But Google Chrome has Chrome Secure Shell extension. This extension provides ssh access to host.
 
 ## Required software
 
@@ -28,7 +29,7 @@ You can install from [GitHub](https://github.com/mapbox/tippecanoe).
 
 You can install from [nodejs.org](https://nodejs.org/ja/download/package-manager/#debian-and-ubuntu-based-linux-distributions-debian-ubuntu-linux)
 
-Or you may want to use [n](https://github.com/tj/n):
+Or you may want to use [n](https://github.com/tj/n) like this:
 ```
 npm install -y nodejs
 npm cache clean
@@ -41,7 +42,7 @@ apt-get -y purge npm nodejs
 
 ### git
 
-[git](https://git-scm.com/) is installed in Linux in many cases.
+Linux often contains [git](https://git-scm.com/) from the beginning.
 
 # Hands-on steps
 
@@ -87,23 +88,20 @@ $ npm install
 added 166 packages from 81 contributors in 5.574s
 ```
 
-### prepare a config file (config/default.hjson) for connecting the datasource
+### prepare a config file (config/default.hjson)
 
 ```console
 $ mkdir config
-$ vi config/default.hjson 
+$ vi config/default.hjson
 ```
 
-You need to input the configurations. Your hands-on tutor may provide the configurations. Otherwise, the following is an example of the content of the config file.
-
+You can also use nano or emacs. You need to enter configuration to config/default.hjson like below.  [hjson](http://hjson.org/) is human interface to JSON. You can skip quotes and commas, and also can comment out.  If you want to write the configuration in JSON, you can create config/default.json. 
 ```hjson
 {
   host: postgis.host.name
   user: username
   password: secretpassword
-  modules: [ // array of z=5 modules expressed by [z, x, y]
-    [5, 18, 15]
-  ]
+  modules: [[5, 18, 15]]
   geom: { // geometric field name for each database
     database1: geom
     database2: geom
@@ -122,17 +120,49 @@ You need to input the configurations. Your hands-on tutor may provide the config
   }
 }
 ```
+Your hands-on tutor may provide the file.
 
-Or you can use other editors such as nano if you are not familiar with vi.
+_modules_ contains [z, x, y] of area you want to create vector tiles. [module-locate](https://hfu.github.io/module-locate/#5/8.000/25.000) is a small site to show which module is where. 
 
-You may want to check the schema and example values of source database by [schema-check](https://github.com/hfu/schema-check).
-
-The syntax of config.hjson is [hjson](https://hjson.org/). You can prepare config.json if you prefer, and the script will automatically recongize the traditional syntax.
-
-You can check the location of z=5 module from [this site](http://maps.gsi.go.jp/#5/3.557283/28.520508/&ls=seamlessphoto&disp=1&lcd=seamlessphoto&vs=c0j0h0k0l0u0t1z0r0s0f1&d=v) for example.
+_data_ contains the names of databases and relations. If you want to check databases and relations of your source DB, 
+ [schema-check](https://github.com/hfu/schema-check) might be helpful.
 
 ### prepare modify.js
+modify.js contains a function to filter a GeoJSON feature. We documented the specification of modify.js at [modify-spec](https://hfu.github.io/modify-spec/)
 
-### convert to vector tiles
 ```console
+$ vi modify.js
+```
+
+Below is an example of modify.js
+
+```javascript
+module.exports = (f) => {
+  switch (f.properties._layer) {
+    case 'custom_planet_ocean_l08':
+    case 'custom_planet_land_a_l08':
+      f.tippecanoe.minzoom = 0
+      f.tippecanoe.maxzoom = 6
+      f.properties = {}
+      break
+    // ...
+  }
+  return f
+}
+```
+
+ Your hands-on tutor may provide the file. 
+
+We will not cover the detailed meaning of this file. You can see [RFC 7946: The GeoJSON Format](https://tools.ietf.org/html/rfc7946) and [tippecanoe's GeoJSON Extension](https://github.com/mapbox/tippecanoe#geojson-extension). 
+
+### create vector tiles
+You prepared config/default.hjson and modify.js for your data. Next, you can create vector tiles!
+```console
+ $ node pnd.js
+importing #1 8-150-124
+started a tippecanoe process: 1 of 1 active, 0 in queue.
+For layer 0, using name "8150124ndjson"
+288854 features, 11519390 bytes of geometry, 1280 bytes of separate metadata, 5806 bytes of string pool
+  99.9%  16/38517/31873  
+8-150-124.ndjson finished. 0 active, 0 in queue.
 ```
