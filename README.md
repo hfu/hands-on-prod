@@ -166,6 +166,7 @@ For layer 0, using name "8150124ndjson"
   99.9%  16/38517/31873  
 8-150-124.ndjson finished. 0 active, 0 in queue.
 ```
+As you might see, pnd.js called tippecanoe internally. 
 
 Now you have vector tiles in .mbtiles!
 ```console
@@ -210,8 +211,19 @@ om":10},"properties":{}}
 .394202368744345,5.447074410955338],[31.466285714314324,5.471373517973518],[31.442150580684824,5.40442366
 2721911]]]},"tippecanoe":{"layer":"polygon","minzoom":7,"maxzoom":10},"properties":{}}
 ```
+These are features extracted from the database, filtered by the rectangle of the module. 
+
+Features with empty coordinates are not actually valid. We keep them because they does not do harm to tippecanoe.
+
+If you want to modify _properties_ or _tippecanoe_, you can modify _modify.js_. You might edit _modify.js_ to change design or optimize vector tiles.
 
 ### check the qmatrix
+It is too easy to create over-sized vector tiles. Over-sized vector tiles lead to slow performance. We need to get rid of over-sized vector tiles because they often cover important areas. 
+
+Thus, we need to measure the size distribution of vector tiles.
+
+FIXME
 
 ### check the vector tiles
 
+FIXME
