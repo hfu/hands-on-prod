@@ -1,15 +1,19 @@
 # Vector tiles production
 ## What do we do in this hands-on?
 
-1. Extract data from [PostGIS](https://postgis.net/) to [NDJSON](http://ndjson.org/) of GeoJSON. For each feature, properties are filetered accordingly, and control properties for tippecanoe are added.
-2. Obtain mbtiles, a package of vector tiles, from NDJSON using [tippecanoe](https://github.com/mapbox/tippecanoe).
-3. Confirm the resulting mbtiles using [tileserver-gl-light](https://github.com/klokantech/tileserver-gl/blob/master/README_light.md) so that the vector tiles are ready for further hosting and consumption steps.
+1. Extract data from [PostGIS](https://postgis.net/) to [NDJSON](http://ndjson.org/) of GeoJSON. Modify features to remove unnecessary properties. Add production control properties.
+2. Get vector tiles from NDJSON using [tippecanoe](https://github.com/mapbox/tippecanoe).
+3. Check resulting vector tiles using [mc](https://github.com/hfu/mc/) and [tileserver-gl-light](https://github.com/klokantech/tileserver-gl/blob/master/README_light.md). Checking is an important part of optimization. 
+
+After this hands-on, vector tiles are ready for hosting and consumption.
 
 # Software
 ## Recommended baseline software
 
 ### Linux
-Although this process works well with macOS and probably works with Cygwin or the Windows Subsystem for Linux, this hands-on assumes that we use Linux, such as ubuntu or RedHat.
+This hands-on assumes Linux such as ubuntu or RedHat as the operating system. 
+
+Yet, we also used macOS. Cygwin or Windows Subsystem for Linux might also be good.
 
 ### Google Chrome
 Although vector tiles works well with all modern web browsers. You may want to add Chrome Secure Shell extension for ssh access to the server.
