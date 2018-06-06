@@ -222,7 +222,66 @@ It is too easy to create over-sized vector tiles. Over-sized vector tiles lead t
 
 Thus, we need to measure the size distribution of vector tiles.
 
-FIXME
+#### *c++11 required* install mc
+
+First, we install [mc](https://github.com/hfu/mc). We need a compiler for c++11. So, your hands-on tutor may introduce some workaround depending on the computing environment. If you have a good compiler, you can install like below:
+
+```console
+$ cd  # change dir to anywhere you want the software
+$ git clone git@github.com:hfu/mc.git
+Initialized empty Git repository in /home/fhidenori/mc/.git/
+remote: Counting objects: 35, done.
+remote: Compressing objects: 100% (9/9), done.
+remote: Total 35 (delta 8), reused 11 (delta 5), pack-reused 21
+Receiving objects: 100% (35/35), 6.77 KiB, done.
+Resolving deltas: 100% (16/16), done.
+$ cd mc
+$ npm install
+
+> integer@1.0.3 install /home/fhidenori/mc/node_modules/integer
+> node tools/install
+
+make: Entering directory `/home/fhidenori/mc/node_modules/integer/build'
+  CXX(target) Release/obj.target/integer/src/integer.o
+  SOLINK_MODULE(target) Release/obj.target/integer.node
+  COPY Release/integer.node
+make: Leaving directory `/home/fhidenori/mc/node_modules/integer/build'
+
+> better-sqlite3@4.1.0 install /home/fhidenori/mc/node_modules/better-sqlite3
+> node deps/install
+
+==> cwd: /home/fhidenori/mc/node_modules/better-sqlite3
+==> /home/fhidenori/mc/node_modules/lzz-gyp/lzz-compiled/linux -hx hpp -sx cpp -k BETTER_SQLITE3 -d -hl -sl -e ./src/better_sqlite3.lzz
+==> cwd: /home/fhidenori/mc/node_modules/better-sqlite3
+==> node-gyp rebuild
+make: Entering directory `/home/fhidenori/mc/node_modules/better-sqlite3/build'
+  ACTION deps_sqlite3_gyp_action_before_build_target_unpack_sqlite_dep Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c
+  TOUCH Release/obj.target/deps/action_before_build.stamp
+  CC(target) Release/obj.target/sqlite3/gen/sqlite-autoconf-3210000/sqlite3.o
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘exprAnalyze’:
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131262: warning: ‘eOp2’ may be used uninitialized in this function
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131506: warning: ‘pRight’ may be used uninitialized in this function
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131506: warning: ‘pLeft’ may be used uninitialized in this function
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘fts5MultiIterNew’:
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:191945: warning: dereferencing pointer ‘z.4988’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:191941: warning: dereferencing pointer ‘z.4988’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:194409: note: initialized from here
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘fts5ApiQueryPhrase’:
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:199090: warning: dereferencing pointer ‘pNew.5356’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:200595: note: initialized from here
+  AR(target) Release/obj.target/deps/sqlite3.a
+  COPY Release/sqlite3.a
+  CXX(target) Release/obj.target/better_sqlite3/src/better_sqlite3.o
+  SOLINK_MODULE(target) Release/obj.target/better_sqlite3.node
+  COPY Release/better_sqlite3.node
+  CC(target) Release/obj.target/test_extension/deps/test_extension.o
+  SOLINK_MODULE(target) Release/obj.target/test_extension.node
+  COPY Release/test_extension.node
+make: Leaving directory `/home/fhidenori/mc/node_modules/better-sqlite3/build'
+added 5 packages from 3 contributors in 59.974s
+```
+
+#### 
 
 ### check the vector tiles
 
