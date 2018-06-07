@@ -227,10 +227,139 @@ Thus, we need to measure the size distribution of vector tiles.
 First, we install [mbq](https://github.com/hfu/mbq). We need a compiler for c++11.
 
 ```console
+$ cd
+$ git clone git@github.com:hfu/mbq.git
+Initialized empty Git repository in /home/fhidenori/mbq/.git/
+remote: Counting objects: 52, done.
+remote: Compressing objects: 100% (22/22), done.
+remote: Total 52 (delta 16), reused 23 (delta 9), pack-reused 21
+Receiving objects: 100% (52/52), 8.85 KiB, done.
+Resolving deltas: 100% (24/24), done.
+$ cd mbq
+$ npm install
 
+> integer@1.0.3 install /home/fhidenori/mbq/node_modules/integer
+> node tools/install
+
+make: Entering directory `/home/fhidenori/mbq/node_modules/integer/build'
+  CXX(target) Release/obj.target/integer/src/integer.o
+  SOLINK_MODULE(target) Release/obj.target/integer.node
+  COPY Release/integer.node
+make: Leaving directory `/home/fhidenori/mbq/node_modules/integer/build'
+
+> better-sqlite3@4.1.1 install /home/fhidenori/mbq/node_modules/better-sqlite3
+> node deps/install
+
+==> cwd: /home/fhidenori/mbq/node_modules/better-sqlite3
+==> /home/fhidenori/mbq/node_modules/lzz-gyp/lzz-compiled/linux -hx hpp -sx cpp -k BETTER_SQLITE3 -d -hl -sl -e ./src/better_sqlite3.lzz
+==> cwd: /home/fhidenori/mbq/node_modules/better-sqlite3
+==> node-gyp rebuild
+make: Entering directory `/home/fhidenori/mbq/node_modules/better-sqlite3/build'
+  ACTION deps_sqlite3_gyp_action_before_build_target_unpack_sqlite_dep Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c
+  TOUCH Release/obj.target/deps/action_before_build.stamp
+  CC(target) Release/obj.target/sqlite3/gen/sqlite-autoconf-3210000/sqlite3.o
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘exprAnalyze’:
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131262: warning: ‘eOp2’ may be used uninitialized in this function
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131506: warning: ‘pRight’ may be used uninitialized in this function
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131506: warning: ‘pLeft’ may be used uninitialized in this function
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘fts5MultiIterNew’:
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:191945: warning: dereferencing pointer ‘z.4988’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:191941: warning: dereferencing pointer ‘z.4988’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:194409: note: initialized from here
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘fts5ApiQueryPhrase’:
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:199090: warning: dereferencing pointer ‘pNew.5356’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:200595: note: initialized from here
+  AR(target) Release/obj.target/deps/sqlite3.a
+  COPY Release/sqlite3.a
+  CXX(target) Release/obj.target/better_sqlite3/src/better_sqlite3.o
+  SOLINK_MODULE(target) Release/obj.target/better_sqlite3.node
+  COPY Release/better_sqlite3.node
+  CC(target) Release/obj.target/test_extension/deps/test_extension.o
+  SOLINK_MODULE(target) Release/obj.target/test_extension.node
+  COPY Release/test_extension.node
+make: Leaving directory `/home/fhidenori/mbq/node_modules/better-sqlite3/build'
+npm notice created a lockfile as package-lock.json. You should commit this file.
+added 7 packages from 4 contributors in 71.922s
+[+] no known vulnerabilities found [8 packages audited]
+$ npm link
+up to date in 1.525s
+[+] no known vulnerabilities found [8 packages audited]
+
+/home/fhidenori/local/bin/mbq -> /home/fhidenori/local/lib/node_modules/mbq/mbq.js
+/home/fhidenori/local/lib/node_modules/mbq -> /home/fhidenori/mbq
+
+
+   ╭────────────────────────────────────────────────────────────────╮
+   │                                                                │
+   │       New minor version of npm available! 6.0.1 → 6.1.0        │
+   │   Changelog: https://github.com/npm/npm/releases/tag/v6.1.0:   │
+   │               Run npm install -g npm to update!                │
+   │                                                                │
+   ╰────────────────────────────────────────────────────────────────╯
 ```
 
 #### check qmatrix
+```console
+$ cd ../pnd
+$ mbq 8-150-124.mbtiles 
+8-150-124.mbtiles: 50000
+qz  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18
+-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 2 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 3 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 4 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 5 -1 -1 -1 -1 -1  0 -1 -1  1  1  2  3  5  8 11 13 14 -1 -1
+ 6 -1 -1 -1 -1 -1 -1  0  0  1  1  1  3  5  7  9 10 11 -1 -1
+ 7 -1 -1 -1 -1 -1 -1 -1  0  0  1  3  4  5  7  9 10 11 -1 -1
+ 8 -1 -1 -1 -1 -1 -1  0  0  1  2  2  3  5  7  8 10  9 -1 -1
+ 9 -1 -1 -1 -1 -1 -1 -1  0 -1 -1  1  4  5  7  8  8  7 -1 -1
+10 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  2  4  5  6  6  7  7 -1 -1
+11 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  2  3  4  4  5  6  5 -1 -1
+12 -1 -1 -1 -1 -1 -1 -1 -1 -1  0  1  2  3  2  5  3  5 -1 -1
+13 -1 -1 -1 -1 -1 -1 -1 -1  0 -1  1  0  1 -1  4 -1  5 -1 -1
+14 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  4 -1 -1
+15 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+16 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+17 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+18 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+19 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+20 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+21 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+22 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+23 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+final result for 89468 tiles
+qz  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18
+-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 2 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 3 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 4 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+ 5 -1 -1 -1 -1 -1  0 -1 -1  1  1  2  3  5  8 11 13 15 -1 -1
+ 6 -1 -1 -1 -1 -1 -1  0  0  1  1  1  3  5  7  9 10 12 -1 -1
+ 7 -1 -1 -1 -1 -1 -1 -1  0  0  1  3  4  5  7  9 10 12 -1 -1
+ 8 -1 -1 -1 -1 -1 -1  0  0  1  2  2  3  5  7  8 10 11 -1 -1
+ 9 -1 -1 -1 -1 -1 -1 -1  0 -1 -1  1  4  5  7  8  8  9 -1 -1
+10 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  2  4  5  6  6  7  8 -1 -1
+11 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  2  3  4  4  5  6  7 -1 -1
+12 -1 -1 -1 -1 -1 -1 -1 -1 -1  0  1  2  3  2  5  3  6 -1 -1
+13 -1 -1 -1 -1 -1 -1 -1 -1  0 -1  1  0  1 -1  4 -1  6 -1 -1
+14 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  6 -1 -1
+15 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+16 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+17 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+18 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+19 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+20 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+21 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+22 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+23 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+```
+This matrix shows the distribution of tile size in the mbtiles file. Each column is for each zoom level. Each row is for each size bin described in what I call [quantity level (q)](https://github.com/hfu/q). For example, at zoom level 6, there is 64 - 127 (q=6) files which takes 16K - 32K (16384 - 32767; q=14) bytes.
+
+I have [a table for q](https://github.com/hfu/qtable).
 
 ### check the vector tiles
 
