@@ -361,6 +361,148 @@ This matrix shows the distribution of tile size in the mbtiles file. Each column
 
 I have [a table for q](https://github.com/hfu/qtable).
 
-### check the vector tiles
+#### install mbstat - *c++11 required*
+(This tool is subject to change.)
 
-FIXME
+```console
+$ cd
+$ git clone git@github.com:hfu/mbstat.git
+Initialized empty Git repository in /home/fhidenori/mbstat/.git/
+remote: Counting objects: 22, done.
+remote: Compressing objects: 100% (17/17), done.
+remote: Total 22 (delta 10), reused 12 (delta 5), pack-reused 0
+Receiving objects: 100% (22/22), 5.28 KiB, done.
+Resolving deltas: 100% (10/10), done.
+$ cd mbstat
+$ npm install
+
+> integer@1.0.3 install /home/fhidenori/mbstat/node_modules/integer
+> node tools/install
+
+make: Entering directory `/home/fhidenori/mbstat/node_modules/integer/build'
+  CXX(target) Release/obj.target/integer/src/integer.o
+  SOLINK_MODULE(target) Release/obj.target/integer.node
+  COPY Release/integer.node
+make: Leaving directory `/home/fhidenori/mbstat/node_modules/integer/build'
+
+> better-sqlite3@4.1.1 install /home/fhidenori/mbstat/node_modules/better-sqlite3
+> node deps/install
+
+==> cwd: /home/fhidenori/mbstat/node_modules/better-sqlite3
+==> /home/fhidenori/mbstat/node_modules/lzz-gyp/lzz-compiled/linux -hx hpp -sx cpp -k BETTER_SQLITE3 -d -hl -sl -e ./src/better_sqlite3.lzz
+==> cwd: /home/fhidenori/mbstat/node_modules/better-sqlite3
+==> node-gyp rebuild
+make: Entering directory `/home/fhidenori/mbstat/node_modules/better-sqlite3/build'
+  ACTION deps_sqlite3_gyp_action_before_build_target_unpack_sqlite_dep Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c
+  TOUCH Release/obj.target/deps/action_before_build.stamp
+  CC(target) Release/obj.target/sqlite3/gen/sqlite-autoconf-3210000/sqlite3.o
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘exprAnalyze’:
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131262: warning: ‘eOp2’ may be used uninitialized in this function
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131506: warning: ‘pRight’ may be used uninitialized in this function
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131506: warning: ‘pLeft’ may be used uninitialized in this function
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘fts5MultiIterNew’:
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:191945: warning: dereferencing pointer ‘z.4988’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:191941: warning: dereferencing pointer ‘z.4988’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:194409: note: initialized from here
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘fts5ApiQueryPhrase’:
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:199090: warning: dereferencing pointer ‘pNew.5356’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:200595: note: initialized from here
+  AR(target) Release/obj.target/deps/sqlite3.a
+  COPY Release/sqlite3.a
+  CXX(target) Release/obj.target/better_sqlite3/src/better_sqlite3.o
+  SOLINK_MODULE(target) Release/obj.target/better_sqlite3.node
+  COPY Release/better_sqlite3.node
+  CC(target) Release/obj.target/test_extension/deps/test_extension.o
+  SOLINK_MODULE(target) Release/obj.target/test_extension.node
+  COPY Release/test_extension.node
+make: Leaving directory `/home/fhidenori/mbstat/node_modules/better-sqlite3/build'
+npm notice created a lockfile as package-lock.json. You should commit this file.
+added 14 packages from 11 contributors in 71.739s
+[+] no known vulnerabilities found [15 packages audited]
+```
+
+#### check statistics on mbtiles
+```console
+$ node mbstat.js ../pnd/8-150-124.mbtiles 
+working with ../pnd/8-150-124.mbtiles...
+```
+We get no output because there is no over-sized vector tiles.
+
+Let's say we had very strict size constraint that q=14 is not acceptable. In that case we edit mbstat.js like this:
+```js
+    //if (q <= 16) continue
+    if (q < 14) continue
+```
+
+Then we can get statistics as below. For example, this shows the number of features in a single tile. If there is any layer which has too many features, say 10000 per tile, then it would be good idea to update modify.js to filter some features or to simply push these layer to larger zoom level.
+
+```
+$ node mbstat.js ../pnd/8-150-124.mbtiles 
+working with ../pnd/8-150-124.mbtiles...
+16/38520/31884(14) {"linestring":52,"point":2,"polygon":1197} {"undefined":1197}
+16/38520/31885(14) {"linestring":49,"point":3,"polygon":1507} {"undefined":1507}
+16/38516/31884(14) {"linestring":26,"point":7,"polygon":1393} {"undefined":1393}
+16/38517/31885(14) {"linestring":42,"point":7,"polygon":1683} {"undefined":1683}
+16/38516/31885(14) {"linestring":49,"point":2,"polygon":1518} {"undefined":1518}
+16/38516/31889(14) {"linestring":32,"polygon":1575} {"undefined":1575}
+16/38515/31886(14) {"linestring":60,"point":1,"polygon":1569} {"undefined":1569}
+16/38515/31887(14) {"linestring":62,"point":4,"polygon":1819} {"undefined":1819}
+16/38519/31882(14) {"linestring":27,"point":9,"polygon":1795} {"undefined":1795}
+16/38507/31879(14) {"linestring":54,"point":1,"polygon":1373} {"undefined":1373}
+16/38518/31882(14) {"linestring":36,"point":8,"polygon":1418} {"undefined":1418}
+16/38515/31879(14) {"linestring":41,"polygon":1559} {"undefined":1559}
+16/38514/31879(14) {"linestring":47,"polygon":1916} {"undefined":1916}
+16/38514/31878(14) {"linestring":41,"point":2,"polygon":1571} {"undefined":1571}
+16/38519/31887(14) {"linestring":57,"point":2,"polygon":1892} {"undefined":1892}
+16/38519/31886(14) {"linestring":36,"point":1,"polygon":1416} {"undefined":1416}
+16/38518/31887(14) {"linestring":63,"polygon":1629} {"undefined":1629}
+16/38518/31886(14) {"linestring":47,"point":1,"polygon":1298} {"undefined":1298}
+16/38519/31890(14) {"linestring":60,"polygon":1487} {"undefined":1487}
+16/38515/31883(14) {"linestring":49,"point":2,"polygon":1594} {"undefined":1594}
+16/38515/31882(14) {"linestring":49,"point":5,"polygon":1749} {"undefined":1749}
+16/38514/31883(14) {"linestring":39,"point":1,"polygon":1415} {"undefined":1415}
+16/38506/31882(14) {"linestring":49,"point":1,"polygon":1434} {"undefined":1434}
+16/38515/31885(14) {"linestring":57,"point":2,"polygon":2094} {"undefined":2094}
+16/38515/31884(14) {"linestring":34,"point":2,"polygon":1958} {"undefined":1958}
+16/38514/31885(14) {"linestring":64,"point":4,"polygon":1305} {"undefined":1305}
+16/38514/31884(14) {"linestring":43,"point":2,"polygon":1338} {"undefined":1338}
+16/38521/31887(14) {"linestring":63,"point":1,"polygon":2454} {"undefined":2454}
+16/38517/31882(14) {"linestring":40,"point":1,"polygon":1432} {"undefined":1432}
+16/38516/31883(14) {"linestring":43,"point":7,"polygon":1879} {"undefined":1879}
+16/38513/31879(14) {"linestring":41,"polygon":1452} {"undefined":1452}
+16/38521/31886(14) {"linestring":63,"point":5,"polygon":1658} {"undefined":1658}
+16/38520/31887(14) {"linestring":45,"point":2,"polygon":2101} {"undefined":2101}
+16/38516/31882(14) {"linestring":52,"point":7,"polygon":1371} {"undefined":1371}
+16/38520/31886(14) {"linestring":49,"point":5,"polygon":1805} {"undefined":1805}
+16/38527/31893(14) {"linestring":56,"point":1,"polygon":1193} {"undefined":1193}
+16/38519/31884(14) {"linestring":67,"point":4,"polygon":1259} {"undefined":1259}
+16/38519/31889(14) {"linestring":63,"point":3,"polygon":2031} {"undefined":2031}
+16/38526/31892(14) {"linestring":134,"polygon":1540} {"undefined":1540}
+16/38519/31888(14) {"linestring":82,"point":3,"polygon":2114} {"undefined":2114}
+16/38515/31881(14) {"linestring":33,"point":2,"polygon":1964} {"undefined":1964}
+16/38514/31881(14) {"linestring":45,"point":4,"polygon":1682} {"undefined":1682}
+16/38515/31880(14) {"linestring":29,"point":3,"polygon":1658} {"undefined":1658}
+16/38507/31880(14) {"linestring":31,"polygon":1463} {"undefined":1463}
+16/38514/31880(14) {"linestring":35,"point":1,"polygon":1456} {"undefined":1456}
+16/38525/31891(14) {"linestring":101,"polygon":1047} {"undefined":1047}
+16/38525/31890(14) {"linestring":31,"point":8,"polygon":1124} {"undefined":1124}
+16/38511/31880(14) {"linestring":31,"point":1,"polygon":1517} {"undefined":1517}
+16/38510/31881(14) {"linestring":53,"polygon":1417} {"undefined":1417}
+16/38510/31880(14) {"linestring":57,"point":1,"polygon":1401} {"undefined":1401}
+16/38514/31877(14) {"linestring":42,"polygon":1343} {"undefined":1343}
+16/38511/31881(14) {"linestring":37,"point":2,"polygon":1215} {"undefined":1215}
+16/38517/31886(14) {"linestring":68,"polygon":2309} {"undefined":2309}
+16/38516/31887(14) {"linestring":61,"point":3,"polygon":1959} {"undefined":1959}
+16/38516/31886(14) {"linestring":73,"point":4,"polygon":1908} {"undefined":1908}
+16/38512/31881(14) {"linestring":49,"point":3,"polygon":1666} {"undefined":1666}
+16/38513/31880(14) {"linestring":61,"polygon":2081} {"undefined":2081}
+16/38521/31888(14) {"linestring":49,"point":1,"polygon":2063} {"undefined":2063}
+16/38512/31880(14) {"linestring":33,"point":2,"polygon":1674} {"undefined":1674}
+16/38513/31881(14) {"linestring":58,"point":1,"polygon":1604} {"undefined":1604}
+16/38513/31884(14) {"linestring":104,"point":8,"polygon":1435} {"undefined":1435}
+```
+
+
+### visual check the vector tiles
+
+FIXME: tileserver-gl-light
