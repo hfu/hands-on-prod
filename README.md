@@ -521,4 +521,6 @@ Startup complete
 
 If you access port 9001 of your server on your browser. You will see TileServer GL light running. You can visual-check the data by clicking _inspect_ from there.
 
+You can stop the tileserver-gl-light by entering Ctrl-C on the console.
+
 You can move on to [the hands-on vector tile hosting](https://hfu.github.io/hands-on-host).
