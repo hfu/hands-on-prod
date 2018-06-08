@@ -504,5 +504,21 @@ working with ../pnd/8-150-124.mbtiles...
 
 
 ### visual check the vector tiles
+We visual-check vector tiles before we host them. We use [tileserver-gl-light](https://github.com/klokantech/tileserver-gl#get-started) for that purpose. 
 
-FIXME: tileserver-gl-light
+If you hands-on in a shared computer, you need to use different port number than other participant's port number. The example below uses port 9001.
+
+```console
+$ $ tileserver-gl-light 8-150-124.mbtiles -p 9001
+Starting tileserver-gl-light v2.3.1
+Automatically creating config file for 8-150-124.mbtiles
+WARN: MBTiles not in "openmaptiles" format. Serving raw data only...
+Run with --verbose to see the config file here.
+Starting server
+Listening at http://[::]:9001/
+Startup complete
+```
+
+If you access port 9001 of your server on your browser. You will see TileServer GL light running. You can visual-check the data by clicking _inspect_ from there.
+
+You can move on to [the hands-on vector tile hosting](https://hfu.github.io/hands-on-host).
