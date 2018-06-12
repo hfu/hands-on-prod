@@ -13,23 +13,27 @@ After this hands-on, vector tiles are ready for [hosting](https://github.com/hfu
 
 ## Recommended baseline software
 
-### Linux
-This hands-on assumes Linux such as ubuntu or RedHat as the operating system. 
+### Operating System: Linux
+As of now, his hands-on assumes Linux such as ubuntu or RedHat as the operating system. 
 
-Yet, we also used macOS. Cygwin or Windows Subsystem for Linux might also be good.
+Yet, we also used macOS for vector tile production and it was successful. Cygwin or Windows Subsystem for Linux might also be good, but we haven't tested yet.
 
-### Google Chrome
-Vector tiles works well with all modern web browsers. But Google Chrome has Chrome Secure Shell extension. This extension provides ssh access to host.
+### Web Browser: Google Chrome
+Vector tiles works well with all modern web browsers. But if you still have options to choose from, we would like to recommend Google Chrome.
+
+The advantage of using Google Chrome in this hands-on is not only it is a good modern browser. Google Chrome has [Chrome Secure Shell extension](https://chrome.google.com/webstore/detail/secure-shell-extension/iodihamcpbpeioajjeobimgagajmlibd). This extension provides ssh access to host.
 
 ## Required software
 
 ### tippecanoe
+Tippecanoe is the software to build vector tilesets from large collections of GeoJSON features.
 
-You can install from [GitHub](https://github.com/mapbox/tippecanoe).
+If you need to install tippecanoe, you can install it from [GitHub](https://github.com/mapbox/tippecanoe). 
 
 ### Node.js
+Node.js is an asynchronous event driven JavaScript runtime. 
 
-You can install from [nodejs.org](https://nodejs.org/ja/download/package-manager/#debian-and-ubuntu-based-linux-distributions-debian-ubuntu-linux)
+You can install  from [nodejs.org](https://nodejs.org/ja/download/package-manager/#debian-and-ubuntu-based-linux-distributions-debian-ubuntu-linux).
 
 Or you may want to use [n](https://github.com/tj/n) like this:
 ```
