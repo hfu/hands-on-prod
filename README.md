@@ -1,11 +1,13 @@
 # Vector tiles production
 ## What do we do in this hands-on?
 
-1. Extract data from [PostGIS](https://postgis.net/) to [NDJSON](http://ndjson.org/) of GeoJSON. Modify features to remove unnecessary properties. Add production control properties.
-2. Get vector tiles from NDJSON using [tippecanoe](https://github.com/mapbox/tippecanoe).
-3. Check resulting vector tiles using [mc](https://github.com/hfu/mc/) and [tileserver-gl-light](https://github.com/klokantech/tileserver-gl/blob/master/README_light.md). Checking is an important part of optimization. 
+First, we extract geospatial data from [PostGIS](https://postgis.net/) to [NDJSON](http://ndjson.org/) of GeoJSON. Embedded in this process, we modify features to remove unnecessary properties and add production control properties such as vector tile layer name and minimum/maximum zoom levels. We also split data into modules each of which convers the spatial extent of the tile at zoom level 5. We call it z=5 modules. Embedding these steps in streaming geospatial data from PostGIS is a way to keep the production time short and reduce the amount of storage to be used.
 
-After this hands-on, vector tiles are ready for hosting and consumption.
+Second, we get vector tiles from NDJSON using [tippecanoe](https://github.com/mapbox/tippecanoe). We borrow the power of tippecanoe, an open-source C++ implementation actively developed for a long time.
+
+Last, check produced vector tiles. We check the size distribution of vector tiles using [mbq](https://github.com/hfu/mbq/). This is a quantitative indicator to examine the performance of vector tiles. In the lean vector tiles project, we mainly use this qmatrix to optimize the size distrubution of vector tiles. In addition, we shortly introduce [mbstat](https://github.com/hfu/mbstat) which checks statistics of filtered vector tiles. At last, we visual-check produced vector tiles using [tileserver-gl-light](https://github.com/klokantech/tileserver-gl/blob/master/README_light.md).
+
+After this hands-on, vector tiles are ready for [hosting](https://github.com/hfu/hands-on-host) and consumption.
 
 # Software
 
