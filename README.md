@@ -33,9 +33,7 @@ If you need to install tippecanoe, you can install it from [GitHub](https://gith
 ### Node.js
 Node.js is an asynchronous event driven JavaScript runtime. 
 
-You can install  from [nodejs.org](https://nodejs.org/ja/download/package-manager/#debian-and-ubuntu-based-linux-distributions-debian-ubuntu-linux).
-
-Or you may want to use [n](https://github.com/tj/n) like this:
+You can install  from [nodejs.org](https://nodejs.org/ja/download/package-manager/#debian-and-ubuntu-based-linux-distributions-debian-ubuntu-linux). Or you may want to use [n](https://github.com/tj/n) like this:
 ```
 npm install -y nodejs
 npm cache clean
@@ -46,6 +44,12 @@ ln -sf /usr/local/bin/node /usr/bin/node
 apt-get -y purge npm nodejs
 ```
 
+### tileserver-gl-light
+We use a Node.js module called tileserver-gl-light to test the vector tiles. If it is not yet installed, you can install it like this:
+```
+npm install -g tileserver-gl-light
+```
+
 ### git
 
 Linux often contains [git](https://git-scm.com/) from the beginning.
@@ -53,11 +57,19 @@ Linux often contains [git](https://git-scm.com/) from the beginning.
 # Hands-on steps
 
 ## Software check
+
+### check git
+
+```console
+$ git --version
+git version 1.7.1
+```
+
 ### check node
 
 ```console
 $ node -v
-v8.11.2
+v9.9.0
 ```
 
 ### check tileserver-gl-light
@@ -71,19 +83,19 @@ tileserver-gl-light v2.3.1
 
 ```console
 $ tippecanoe -v
-tippecanoe v1.28.1
+tippecanoe v1.27.16
 ```
+
 ## Produce vector tiles
 ### clone pnd.js using git
 
 ```console
-$ git clone git@github.com:hfu/pnd.git
-Initialized empty Git repository in /home/fhidenori/pnd/.git/
-remote: Counting objects: 52, done.
-remote: Compressing objects: 100% (38/38), done.
-remote: Total 52 (delta 29), reused 35 (delta 14), pack-reused 0
-Receiving objects: 100% (52/52), 21.06 KiB, done.
-Resolving deltas: 100% (29/29), done.
+$ git clone https://github.com/hfu/pnd.git
+Initialized empty Git repository in /home/user1/pnd/.git/
+remote: Counting objects: 79, done.
+remote: Compressing objects: 100% (58/58), done.
+remote: Total 79 (delta 45), reused 52 (delta 20), pack-reused 0
+Unpacking objects: 100% (79/79), done.
 ```
 
 ### install npm modules
@@ -234,47 +246,39 @@ First, we install [mbq](https://github.com/hfu/mbq). We need a compiler for c++1
 
 ```console
 $ cd
-$ git clone git@github.com:hfu/mbq.git
-Initialized empty Git repository in /home/fhidenori/mbq/.git/
+$ git clone https://github.com/hfu/mbq.git
+Initialized empty Git repository in /home/user1/mbq/.git/
 remote: Counting objects: 52, done.
 remote: Compressing objects: 100% (22/22), done.
 remote: Total 52 (delta 16), reused 23 (delta 9), pack-reused 21
-Receiving objects: 100% (52/52), 8.85 KiB, done.
-Resolving deltas: 100% (24/24), done.
+Unpacking objects: 100% (52/52), done.
 $ cd mbq
 $ npm install
 
-> integer@1.0.3 install /home/fhidenori/mbq/node_modules/integer
-> node tools/install
+> integer@1.0.5 install /home/user1/mbq/node_modules/integer
+> node-gyp rebuild
 
-make: Entering directory `/home/fhidenori/mbq/node_modules/integer/build'
+make: Entering directory `/home/user1/mbq/node_modules/integer/build'
   CXX(target) Release/obj.target/integer/src/integer.o
   SOLINK_MODULE(target) Release/obj.target/integer.node
   COPY Release/integer.node
-make: Leaving directory `/home/fhidenori/mbq/node_modules/integer/build'
+make: Leaving directory `/home/user1/mbq/node_modules/integer/build'
 
-> better-sqlite3@4.1.1 install /home/fhidenori/mbq/node_modules/better-sqlite3
-> node deps/install
+> better-sqlite3@4.1.4 install /home/user1/mbq/node_modules/better-sqlite3
+> node-gyp rebuild
 
-==> cwd: /home/fhidenori/mbq/node_modules/better-sqlite3
-==> /home/fhidenori/mbq/node_modules/lzz-gyp/lzz-compiled/linux -hx hpp -sx cpp -k BETTER_SQLITE3 -d -hl -sl -e ./src/better_sqlite3.lzz
-==> cwd: /home/fhidenori/mbq/node_modules/better-sqlite3
-==> node-gyp rebuild
-make: Entering directory `/home/fhidenori/mbq/node_modules/better-sqlite3/build'
-  ACTION deps_sqlite3_gyp_action_before_build_target_unpack_sqlite_dep Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c
+make: Entering directory `/home/user1/mbq/node_modules/better-sqlite3/build'
+  ACTION deps_sqlite3_gyp_action_before_build_target_unpack_sqlite_dep Release/obj/gen/sqlite-autoconf-3240000/sqlite3.c
+
   TOUCH Release/obj.target/deps/action_before_build.stamp
-  CC(target) Release/obj.target/sqlite3/gen/sqlite-autoconf-3210000/sqlite3.o
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘exprAnalyze’:
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131262: warning: ‘eOp2’ may be used uninitialized in this function
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131506: warning: ‘pRight’ may be used uninitialized in this function
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:131506: warning: ‘pLeft’ may be used uninitialized in this function
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘fts5MultiIterNew’:
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:191945: warning: dereferencing pointer ‘z.4988’ does break strict-aliasing rules
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:191941: warning: dereferencing pointer ‘z.4988’ does break strict-aliasing rules
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:194409: note: initialized from here
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c: In function ‘fts5ApiQueryPhrase’:
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:199090: warning: dereferencing pointer ‘pNew.5356’ does break strict-aliasing rules
-Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:200595: note: initialized from here
+  CC(target) Release/obj.target/sqlite3/gen/sqlite-autoconf-3240000/sqlite3.o
+Release/obj/gen/sqlite-autoconf-3240000/sqlite3.c: In function ‘fts5MultiIterNew’:
+Release/obj/gen/sqlite-autoconf-3240000/sqlite3.c:198438: warning: dereferencing pointer ‘z.6263’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3240000/sqlite3.c:198434: warning: dereferencing pointer ‘z.6263’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3240000/sqlite3.c:200904: note: initialized from here
+Release/obj/gen/sqlite-autoconf-3240000/sqlite3.c: In function ‘fts5ApiQueryPhrase’:
+Release/obj/gen/sqlite-autoconf-3240000/sqlite3.c:205600: warning: dereferencing pointer ‘pNew.6631’ does break strict-aliasing rules
+Release/obj/gen/sqlite-autoconf-3240000/sqlite3.c:207105: note: initialized from here
   AR(target) Release/obj.target/deps/sqlite3.a
   COPY Release/sqlite3.a
   CXX(target) Release/obj.target/better_sqlite3/src/better_sqlite3.o
@@ -283,25 +287,10 @@ Release/obj/gen/sqlite-autoconf-3210000/sqlite3.c:200595: note: initialized from
   CC(target) Release/obj.target/test_extension/deps/test_extension.o
   SOLINK_MODULE(target) Release/obj.target/test_extension.node
   COPY Release/test_extension.node
-make: Leaving directory `/home/fhidenori/mbq/node_modules/better-sqlite3/build'
+make: Leaving directory `/home/user1/mbq/node_modules/better-sqlite3/build'
 npm notice created a lockfile as package-lock.json. You should commit this file.
-added 7 packages from 4 contributors in 71.922s
-[+] no known vulnerabilities found [8 packages audited]
-$ npm link
-up to date in 1.525s
-[+] no known vulnerabilities found [8 packages audited]
-
-/home/fhidenori/local/bin/mbq -> /home/fhidenori/local/lib/node_modules/mbq/mbq.js
-/home/fhidenori/local/lib/node_modules/mbq -> /home/fhidenori/mbq
-
-
-   ╭────────────────────────────────────────────────────────────────╮
-   │                                                                │
-   │       New minor version of npm available! 6.0.1 → 6.1.0        │
-   │   Changelog: https://github.com/npm/npm/releases/tag/v6.1.0:   │
-   │               Run npm install -g npm to update!                │
-   │                                                                │
-   ╰────────────────────────────────────────────────────────────────╯
+added 4 packages from 3 contributors in 71.113s
+[+] no known vulnerabilities found [5 packages audited]
 ```
 
 #### check qmatrix
